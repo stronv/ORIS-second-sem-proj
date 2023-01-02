@@ -6,13 +6,13 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable {
-    final int originalTitleSize = 16;
+    final int originalTileSize = 16;
     final int scale = 3;
-    public final int titleSize = originalTitleSize * scale;
-    final int maxScreenColumn = 16; // Разделение окна на 13 равных частей;
-    final int maxScreenRow = 13; // Разделение окна на 12 равных частей;
-    final int screenWidth = titleSize * maxScreenColumn;
-    final int screenHeight = titleSize * maxScreenRow;
+    public final int tileSize = originalTileSize * scale;
+    final int maxScreenColumn = 11; // Разделение окна на 13 равных частей;
+    final int maxScreenRow = 15; // Разделение окна на 12 равных частей;
+    final int screenWidth = tileSize * maxScreenColumn;
+    final int screenHeight = tileSize * maxScreenRow;
     KeyHandler keyHandler = new KeyHandler();
 
     Player mouse = new Player(this, keyHandler);
@@ -31,9 +31,6 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread.start();
     }
 
-    int mouseX = 100;
-    int mouseY = 100;
-    int mouseSpeed = 10;
     int FPS = 60;
 
     @Override
@@ -43,8 +40,6 @@ public class GamePanel extends JPanel implements Runnable {
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
-
-
 
         while (gameThread != null) {
 

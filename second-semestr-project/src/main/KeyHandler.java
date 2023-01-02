@@ -29,5 +29,6 @@ public class KeyHandler implements KeyListener {
 
         if (code == KeyEvent.VK_A) { leftPressed = false; }
         if (code == KeyEvent.VK_D) { rightPressed = false; }
+
     }
 }

@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="79e85fe8-ac53-45f6-a1bf-2bb674089817" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/second-semestr-project/src/net/GameClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/second-semestr-project/src/net/GameServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ORIS-second-sem-proj/entity/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ORIS-second-sem-proj/entity/Player.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ORIS-second-sem-proj/main/GamePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ORIS-second-sem-proj/main/GamePanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/second-semestr-project/src/entity/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/second-semestr-project/src/entity/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/second-semestr-project/src/main/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/second-semestr-project/src/main/GamePanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,7 +44,8 @@
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)"
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -57,6 +59,26 @@
       <recent name="$PROJECT_DIR$/second-semestr-project/src" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.Main" />
+      <module name="ORIS-second-sem-proj" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -66,6 +88,7 @@
       <option name="presentableId" value="Default" />
       <updated>1672684571586</updated>
       <workItem from="1672684596944" duration="15623000" />
+      <workItem from="1672705932075" duration="5542000" />
     </task>
     <servers />
   </component>

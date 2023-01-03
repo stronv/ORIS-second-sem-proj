@@ -2,6 +2,8 @@ package main;
 
 import entity.Player;
 import main.tile.TileManager;
+import net.GameClient;
+import net.GameServer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,8 +17,10 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenWidth = tileSize * maxScreenColumn;
     public final int screenHeight = tileSize * maxScreenRow;
     KeyHandler keyHandler = new KeyHandler();
-
     Player mouse = new Player(this, keyHandler);
+
+    private GameClient socketClient;
+    private GameServer socketServer;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -25,15 +29,20 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
     }
-
     Thread gameThread;
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
+
+        socketServer = new GameServer(this);
+        socketServer.start();
+
+        socketClient = new GameClient(this, "localhost");
+        socketClient.start();
+        socketClient.sendData("ping".getBytes());
     }
 
     int FPS = 60;
-
     TileManager tileM = new TileManager(this);
 
     @Override
@@ -47,7 +56,6 @@ public class GamePanel extends JPanel implements Runnable {
         while (gameThread != null) {
 
             currentTime = System.nanoTime();
-//            System.out.println("Current Time is: " + currentTime );
 
             delta += (currentTime - lastTime) / drawInterval;
 

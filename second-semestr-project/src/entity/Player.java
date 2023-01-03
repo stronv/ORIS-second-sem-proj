@@ -79,6 +79,6 @@ public class Player extends Entity {
                 }
                 break;
         }
-        graphics2D.drawImage(image, x, y, gamePanel.tileSize * 2, gamePanel.tileSize * 2, null);
+        graphics2D.drawImage(image, x, y, gamePanel.tileSize, gamePanel.tileSize, null);
     }
 }

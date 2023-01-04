@@ -19,8 +19,12 @@ public class Player extends Entity {
         this.gamePanel = gamePanel;
         this.keyHandler = keyHandler;
 
-
         screenY  = gamePanel.screenHeight/2 - (gamePanel.tileSize/2);
+        solidPart = new Rectangle();
+        solidPart.x = 8;
+        solidPart.y = 0;
+        solidPart.width = 16;
+        solidPart.height = 32;
         getPlayerImage();
         setDefaultValues();
     }
@@ -43,20 +47,47 @@ public class Player extends Entity {
 
     public void update() {
 
-        if (keyHandler.leftPressed == true) {
-            direction = "left";
-            x -= speed;
-        }
-        else if (keyHandler.rightPressed == true) {
-            direction = "right";
-            x += speed;
-        } else if (keyHandler.upPressed == true) {
+        if (keyHandler.upPressed == true) {
             direction = "up";
-            y -= speed;
-        } else if (keyHandler.downPressed == true) {
-            direction = "down";
-            y += speed;
         }
+        else if (keyHandler.downPressed == true) {
+            direction = "down";
+        } else if (keyHandler.leftPressed == true) {
+            direction = "left";
+        } else if (keyHandler.rightPressed == true) {
+            direction = "right";
+        }
+
+        //проверка столковение поля
+        collisionOn = false;
+        gamePanel.collcheck.checkTile(this);
+
+        //если столкновения не обнаружено то мышь может дальше двигаться
+         if(collisionOn == false) {
+             switch (direction) {
+                 case "up":
+                     if (keyHandler.upPressed == true) {
+                        y -= speed;
+                     }
+                     break;
+                 case "down":
+                     if (keyHandler.downPressed == true) {
+                         y += speed;
+                     }
+                     break;
+                 case "left":
+                     if (keyHandler.leftPressed == true) {
+                         x -= speed;
+                     }
+                     break;
+                 case "right":
+                     if (keyHandler.rightPressed == true) {
+                         x += speed;
+                     }
+                     break;
+             }
+         }
+
         spriteCounter++;
         if(spriteCounter > 20) {
             if(spriteNumber == 1) {

@@ -22,7 +22,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int WorldHeight = tileSize *  maxWorldRow;
 
     KeyHandler keyHandler = new KeyHandler();
-
+    public CollisionChecker collcheck = new CollisionChecker(this);
     public Player mouse = new Player(this, keyHandler);
 
 

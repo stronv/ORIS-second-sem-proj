@@ -12,17 +12,23 @@ public class Player extends Entity {
     GamePanel gamePanel;
     KeyHandler keyHandler;
 
+
+    public final int screenY;
+
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         this.gamePanel = gamePanel;
         this.keyHandler = keyHandler;
+
+
+        screenY  = gamePanel.screenHeight/2 - (gamePanel.tileSize/2);
         getPlayerImage();
         setDefaultValues();
     }
 
     public void setDefaultValues() {
-        x = 100;
-        y = 100;
-        speed = 6;
+        x = gamePanel.tileSize * 5;
+        y = gamePanel.tileSize * 28;
+        speed = 4;
         direction = "left";
     }
 
@@ -44,6 +50,12 @@ public class Player extends Entity {
         else if (keyHandler.rightPressed == true) {
             direction = "right";
             x += speed;
+        } else if (keyHandler.upPressed == true) {
+            direction = "up";
+            y -= speed;
+        } else if (keyHandler.downPressed == true) {
+            direction = "down";
+            y += speed;
         }
         spriteCounter++;
         if(spriteCounter > 20) {
@@ -58,8 +70,6 @@ public class Player extends Entity {
     }
 
     public void draw(Graphics2D graphics2D) {
-//        graphics2D.setColor(Color.white);
-//        graphics2D.fillRect(x, y, gamePanel.titleSize, gamePanel.titleSize);
         BufferedImage image = null;
         switch (direction){
             case "left":
@@ -70,6 +80,7 @@ public class Player extends Entity {
                     image = moveRight;
                 }
                 break;
+
             case "right":
                 if(spriteNumber == 1) {
                     image = moveRight;
@@ -78,7 +89,25 @@ public class Player extends Entity {
                     image = moveLeft;
                 }
                 break;
+
+            case "up":
+                if(spriteNumber == 1) {
+                    image = moveRight;
+                }
+                if(spriteNumber == 2) {
+                    image = moveLeft;
+                }
+                break;
+
+            case "down":
+                if(spriteNumber == 1) {
+                    image = moveRight;
+                }
+                if(spriteNumber == 2) {
+                    image = moveLeft;
+                }
+                break;
         }
-        graphics2D.drawImage(image, x, y, gamePanel.tileSize, gamePanel.tileSize, null);
+        graphics2D.drawImage(image, x, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
     }
 }

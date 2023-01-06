@@ -1,10 +1,17 @@
 package main;
 
+import entity.Entity;
 import entity.Player;
+import entity.PlayerMP;
 import main.tile.TileManager;
+import net.GameClient;
+import net.GameServer;
+import net.packets.Packet00Login;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GamePanel extends JPanel implements Runnable {
     final int originalTileSize = 16;
@@ -23,8 +30,18 @@ public class GamePanel extends JPanel implements Runnable {
 
     KeyHandler keyHandler = new KeyHandler();
 
-    public Player mouse = new Player(this, keyHandler);
+    public KeyHandler getKeyHandler() {
+        return keyHandler;
+    }
+    private GameClient socketClient;
+    private GameServer socketServer;
 
+    public Player mouse = new Player(this, keyHandler, "player1");
+    private List<Player> playerArrayList = new ArrayList<Player>();
+
+    public void addPlayer(Player player) {
+        this.playerArrayList.add(player);
+    }
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -38,6 +55,17 @@ public class GamePanel extends JPanel implements Runnable {
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
+
+        socketServer = new GameServer(this);
+        socketServer.start();
+
+        socketClient = new GameClient(this, "localhost");
+        socketClient.start();
+        socketClient.sendData("ping".getBytes());
+
+        Packet00Login packet00Login = (new Packet00Login("player2"));
+
+        packet00Login.writeData(socketClient);
     }
 
     int FPS = 60;
@@ -70,7 +98,9 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        mouse.update();
+        for (Player p: playerArrayList) {
+            p.update();
+        }
     }
 
     public void paintComponent(Graphics graphics) {
@@ -79,7 +109,9 @@ public class GamePanel extends JPanel implements Runnable {
 
         tileM.draw(graphics2D);
 
-        mouse.draw(graphics2D);
+        for (Player p: playerArrayList) {
+            p.draw(graphics2D);
+        }
 
         graphics2D.dispose();
     }

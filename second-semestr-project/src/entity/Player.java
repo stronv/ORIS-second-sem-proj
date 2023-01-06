@@ -11,25 +11,24 @@ import java.io.IOException;
 public class Player extends Entity {
     GamePanel gamePanel;
     KeyHandler keyHandler;
-
-
     public final int screenY;
 
-    public Player(GamePanel gamePanel, KeyHandler keyHandler) {
+    public Player(GamePanel gamePanel, KeyHandler keyHandler, String username) {
         this.gamePanel = gamePanel;
         this.keyHandler = keyHandler;
-
-
+        this.username = username;
         screenY  = gamePanel.screenHeight/2 - (gamePanel.tileSize/2);
         getPlayerImage();
         setDefaultValues();
     }
+
 
     public void setDefaultValues() {
         x = gamePanel.tileSize * 5;
         y = gamePanel.tileSize * 28;
         speed = 4;
         direction = "left";
+        username = "player1";
     }
 
     public void getPlayerImage() {

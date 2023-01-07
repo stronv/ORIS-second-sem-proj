@@ -37,9 +37,9 @@ public class GamePanel extends JPanel implements Runnable {
     private GameServer socketServer;
 
     public Player mouse = new Player(this, keyHandler, "player1");
-    private List<Player> playerArrayList = new ArrayList<Player>();
+    private List<Entity> playerArrayList = new ArrayList<Entity>();
 
-    public void addPlayer(Player player) {
+    public void addPlayer(Entity player) {
         this.playerArrayList.add(player);
     }
 
@@ -56,15 +56,15 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread = new Thread(this);
         gameThread.start();
 
-        socketServer = new GameServer(this);
-        socketServer.start();
-
+        if (JOptionPane.showConfirmDialog(this, "Do you want to run the server?") == 0) {
+            socketServer = new GameServer(this);
+            socketServer.start();
+        }
         socketClient = new GameClient(this, "localhost");
         socketClient.start();
         socketClient.sendData("ping".getBytes());
 
-        Packet00Login packet00Login = (new Packet00Login("player2"));
-
+        Packet00Login packet00Login = (new Packet00Login(JOptionPane.showInputDialog(this, "Enter your username")));
         packet00Login.writeData(socketClient);
     }
 
@@ -98,7 +98,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        for (Player p: playerArrayList) {
+        for (Entity p: playerArrayList) {
             p.update();
         }
     }
@@ -109,10 +109,9 @@ public class GamePanel extends JPanel implements Runnable {
 
         tileM.draw(graphics2D);
 
-        for (Player p: playerArrayList) {
+        for (Entity p: playerArrayList) {
             p.draw(graphics2D);
         }
-
         graphics2D.dispose();
     }
 }

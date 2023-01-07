@@ -29,7 +29,7 @@ public class Packet00Login extends Packet {
 
     @Override
     public byte[] getData() {
-        return ("00" + this.username).getBytes();
+        return ("00 " + this.username).getBytes();
     }
 
     public String getUsername() {

@@ -22,7 +22,6 @@ public class Player extends Entity {
         setDefaultValues();
     }
 
-
     public void setDefaultValues() {
         x = gamePanel.tileSize * 5;
         y = gamePanel.tileSize * 28;

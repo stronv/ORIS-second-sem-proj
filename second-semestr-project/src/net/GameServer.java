@@ -1,6 +1,7 @@
 package net;
 
 
+import entity.Player;
 import entity.PlayerMP;
 import main.GamePanel;
 import net.packets.Packet;
@@ -33,15 +34,13 @@ public class GameServer extends Thread {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-
             parsePacket(datagramPacket.getData(), datagramPacket.getAddress(), datagramPacket.getPort());
-
-            String message = new String(datagramPacket.getData());
+            String message = new String(datagramPacket.getData()).trim();
             System.out.println("CLIENT [" + datagramPacket.getAddress().getHostAddress() + ":" + datagramPacket.getPort() +
                     "] -> " + message);
             if (message.trim().equalsIgnoreCase("ping")) {
                 sendData(
-                        "pong".getBytes(),
+                        "pong ".getBytes(),
                         datagramPacket.getAddress(),
                         datagramPacket.getPort()
                 );
@@ -62,9 +61,9 @@ public class GameServer extends Thread {
                 PlayerMP playerMP = null;
 
                 if (address.getHostAddress().equalsIgnoreCase("127.0.0.1")) {
-                    playerMP = new PlayerMP(gamePanel, gamePanel.getKeyHandler(), "player2", address, port);
+                    playerMP = new PlayerMP(gamePanel, gamePanel.getKeyHandler(), "", address, port);
                 } else {
-                    playerMP = new PlayerMP(gamePanel, "player2", address, port);
+                    playerMP = new PlayerMP(gamePanel, "", address, port);
                 }
                 if (playerMP != null) {
                     this.connectedPlayers.add(playerMP);

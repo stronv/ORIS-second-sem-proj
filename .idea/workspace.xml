@@ -9,10 +9,14 @@
       <change beforePath="$PROJECT_DIR$/out/production/ORIS-second-sem-proj/entity/Entity.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ORIS-second-sem-proj/entity/Entity.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ORIS-second-sem-proj/entity/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ORIS-second-sem-proj/entity/Player.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ORIS-second-sem-proj/main/GamePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ORIS-second-sem-proj/main/GamePanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ORIS-second-sem-proj/main/KeyHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ORIS-second-sem-proj/main/KeyHandler.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/second-semestr-project/src/entity/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/second-semestr-project/src/entity/Entity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/second-semestr-project/src/entity/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/second-semestr-project/src/entity/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/second-semestr-project/src/entity/PlayerMP.java" beforeDir="false" afterPath="$PROJECT_DIR$/second-semestr-project/src/entity/PlayerMP.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/second-semestr-project/src/main/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/second-semestr-project/src/main/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/second-semestr-project/src/main/KeyHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/second-semestr-project/src/main/KeyHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/second-semestr-project/src/net/GameServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/second-semestr-project/src/net/GameServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/second-semestr-project/src/net/packets/Packet00Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/second-semestr-project/src/net/packets/Packet00Login.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +46,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/artyom/Documents/GitHub/ORIS-second-sem-proj/second-semestr-project/src/resources/player&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/artyom/Documents/GitHub/ORIS-second-sem-proj&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -93,6 +97,9 @@
       <workItem from="1672705932075" duration="5542000" />
       <workItem from="1672856785459" duration="381000" />
       <workItem from="1672937592048" duration="5198000" />
+      <workItem from="1673012694767" duration="10194000" />
+      <workItem from="1673101029522" duration="58000" />
+      <workItem from="1673101817379" duration="789000" />
     </task>
     <servers />
   </component>

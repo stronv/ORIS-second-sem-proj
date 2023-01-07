@@ -62,8 +62,6 @@ public class TileManager {
             tile[10] = new Tile();
             tile[10].image = ImageIO.read(getClass().getResourceAsStream("/resources/tiles/finishline_5.png"));
 
-            tile[11] = new Tile();
-            tile[11].image = ImageIO.read(getClass().getResourceAsStream("/resources/tiles/hole.png"));;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -109,8 +107,14 @@ public class TileManager {
             int screenX = x - gamePanel.mouse.x + gamePanel.mouse.x;
             int screenY = y - gamePanel.mouse.y + gamePanel.mouse.screenY;
 
+//            if(x + gamePanel.tileSize > gamePanel.mouse.x - gamePanel.mouse.screenX &&
+//                    x - gamePanel.tileSize < gamePanel.mouse.x + gamePanel.mouse.screenX &&
+//                    y + gamePanel.tileSize > gamePanel.mouse.y - gamePanel.mouse.screenY &&
+//                    y - gamePanel.tileSize < gamePanel.mouse.y + gamePanel.mouse.screenY){
+               graphics2D.drawImage(tile[tileNumber].image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+//            }
 
-            graphics2D.drawImage(tile[tileNumber].image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+
 
             worldColumn ++;
 

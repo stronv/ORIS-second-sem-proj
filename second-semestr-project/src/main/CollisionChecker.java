@@ -57,4 +57,71 @@ public class CollisionChecker {
             break;
     }
     }
+    //проверка являтся ли сущность игроком или нет
+    public int checkObject(Entity entity, boolean mouse) {
+        int index = 999;
+        for(int i = 0; i < gamePanel.object.length; i++) {
+
+            if(gamePanel.object[i] != null) {
+            //находим твердую область сущности
+                entity.solidPart.x = entity.x + entity.solidPart.x;
+                entity.solidPart.y = entity.y + entity.solidPart.y;
+            //твердая область объекта
+                gamePanel.object[i].solidPart.x = gamePanel.object[i].x + gamePanel.object[i].solidPart.x;
+                gamePanel.object[i].solidPart.y = gamePanel.object[i].y + gamePanel.object[i].solidPart.y;
+            //где объект будет находиться после перемещения.
+                switch (entity.direction) {
+                    case "up":
+                        entity.solidPart.y -= entity.speed;
+                        if(entity.solidPart.intersects(gamePanel.object[i].solidPart)) {
+                            if(gamePanel.object[i].collision == true) {
+                                entity.collisionOn = true;
+                            }
+                            if(mouse == true) {
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "down":
+                        entity.solidPart.y += entity.speed;
+                        if(entity.solidPart.intersects(gamePanel.object[i].solidPart)) {
+                            if(gamePanel.object[i].collision == true) {
+                                entity.collisionOn = true;
+                            }
+                            if(mouse == true) {
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "left":
+                        entity.solidPart.x -= entity.speed;
+                        if(entity.solidPart.intersects(gamePanel.object[i].solidPart)) {
+                            if(gamePanel.object[i].collision == true) {
+                                entity.collisionOn = true;
+                            }
+                            if(mouse == true) {
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "right":
+                        entity.solidPart.x += entity.speed;
+                        if(entity.solidPart.intersects(gamePanel.object[i].solidPart)) {
+                            if(gamePanel.object[i].collision == true) {
+                                entity.collisionOn = true;
+                            }
+                            if(mouse == true) {
+                                index = i;
+                            }
+                        }
+                        break;
+                }
+                entity.solidPart.x = entity.solidPartDefaultX;
+                entity.solidPart.y = entity.solidPartDefaultY;
+                gamePanel.object[i].solidPart.x = gamePanel.object[i].solidPartDefaultX;
+                gamePanel.object[i].solidPart.y = gamePanel.object[i].solidPartDefaultY;
+            }
+        }
+        return index;
+    }
 }

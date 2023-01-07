@@ -12,17 +12,21 @@ public class Player extends Entity {
     GamePanel gamePanel;
     KeyHandler keyHandler;
 
-
-    public final int screenY;
+    public final int screenY, screenX;
+    int hasCheese = 0;
 
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         this.gamePanel = gamePanel;
         this.keyHandler = keyHandler;
 
         screenY  = gamePanel.screenHeight/2 - (gamePanel.tileSize/2);
+        screenX  = gamePanel.screenWidth/2 - (gamePanel.tileSize/2);
+
         solidPart = new Rectangle();
         solidPart.x = 8;
         solidPart.y = 0;
+        solidPartDefaultX = solidPart.x;
+        solidPartDefaultY = solidPart.y;
         solidPart.width = 16;
         solidPart.height = 32;
         getPlayerImage();
@@ -61,7 +65,9 @@ public class Player extends Entity {
         //проверка столковение поля
         collisionOn = false;
         gamePanel.collcheck.checkTile(this);
-
+        //проверка столковения oбъекта
+        int objectIndex = gamePanel.collcheck.checkObject(this, true);
+        pickUpObject(objectIndex);
         //если столкновения не обнаружено то мышь может дальше двигаться
          if(collisionOn == false) {
              switch (direction) {
@@ -99,6 +105,19 @@ public class Player extends Entity {
             spriteCounter = 0;
         }
     }
+
+   public void pickUpObject(int index) {
+        if (index != 999) {
+            String objectName = gamePanel.object[index].name;
+            switch (objectName) {
+                case "Cheese":
+                    hasCheese++;
+                    gamePanel.object[index] = null;
+                    System.out.println("Cheese: "+hasCheese);
+                    break;
+            }
+        }
+   }
 
     public void draw(Graphics2D graphics2D) {
         BufferedImage image = null;

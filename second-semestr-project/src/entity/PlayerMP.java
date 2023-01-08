@@ -13,15 +13,16 @@ public class PlayerMP extends Player {
 
     public InetAddress ipAddress;
     public int port;
-    public PlayerMP(GamePanel gamePanel, KeyHandler keyHandler) {
-        super(gamePanel, keyHandler);
+
+    public PlayerMP(GamePanel gamePanel, KeyHandler keyHandler, String username) {
+        super(gamePanel, keyHandler, username);
         this.ipAddress = ipAddress;
         this.port = port;
         setDefaultValues();
     }
 
     public PlayerMP(GamePanel gamePanel,String username, InetAddress ipAddress, int port) {
-        super(gamePanel, null);
+        super(gamePanel, null, null);
         this.ipAddress = ipAddress;
         this.port = port;
         setDefaultValues();
@@ -29,20 +30,49 @@ public class PlayerMP extends Player {
 
     @Override
     public void update() {
-        if (keyHandler.leftPressed1) {
-            direction = "left";
-            x -= speed;
-        }
-        else if (keyHandler.rightPressed1) {
-            direction = "right";
-            x += speed;
-        } else if (keyHandler.upPressed1) {
+        if (keyHandler.upPressed1 == true) {
             direction = "up";
-            y -= speed;
-        } else if (keyHandler.downPressed1) {
-            direction = "down";
-            y += speed;
         }
+        else if (keyHandler.downPressed1 == true) {
+            direction = "down";
+        } else if (keyHandler.leftPressed1 == true) {
+            direction = "left";
+        } else if (keyHandler.rightPressed1 == true) {
+            direction = "right";
+        }
+
+        //проверка столковение поля
+        collisionOn = false;
+        gamePanel.collcheck.checkTile(this);
+        //проверка столковения oбъекта
+        int objectIndex = gamePanel.collcheck.checkObject(this, true);
+        pickUpObject(objectIndex);
+        //если столкновения не обнаружено то мышь может дальше двигаться
+        if(collisionOn == false) {
+            switch (direction) {
+                case "up":
+                    if (keyHandler.upPressed1 == true) {
+                        y -= speed;
+                    }
+                    break;
+                case "down":
+                    if (keyHandler.downPressed1 == true) {
+                        y += speed;
+                    }
+                    break;
+                case "left":
+                    if (keyHandler.leftPressed1 == true) {
+                        x -= speed;
+                    }
+                    break;
+                case "right":
+                    if (keyHandler.rightPressed1 == true) {
+                        x += speed;
+                    }
+                    break;
+            }
+        }
+
         spriteCounter++;
         if(spriteCounter > 20) {
             if(spriteNumber == 1) {

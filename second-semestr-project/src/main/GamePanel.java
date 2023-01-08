@@ -1,5 +1,6 @@
 package main;
 
+import entity.Cat;
 import entity.Entity;
 import entity.Player;
 import entity.PlayerMP;
@@ -25,11 +26,13 @@ public class GamePanel extends JPanel implements Runnable {
     public final int WorldHeight = tileSize *  maxWorldRow;
 
     KeyHandler keyHandler = new KeyHandler();
+
     public CollisionChecker collcheck = new CollisionChecker(this);
     public AssetSetter asSet = new AssetSetter(this);
     public UI ui = new UI(this);
-    public Player mouse = new Player(this, keyHandler);
-    public Player mouse2 = new PlayerMP(this, keyHandler);
+    public Player mouse = new Player(this, keyHandler,  "player1");
+
+    public Cat cats[]  = new Cat[3];
 
     public SuperObject object[] = new SuperObject[10];
 
@@ -42,7 +45,9 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void SetUpGame() {
+
         asSet.setObject();
+        asSet.setCats();
     }
 
     Thread gameThread;
@@ -66,7 +71,6 @@ public class GamePanel extends JPanel implements Runnable {
         while (gameThread != null) {
 
             currentTime = System.nanoTime();
-//            System.out.println("Current Time is: " + currentTime );
 
             delta += (currentTime - lastTime) / drawInterval;
 
@@ -83,7 +87,13 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
         //Player
         mouse.update();
-        mouse2.update();
+
+        for(int i = 0; i < cats.length; i++){
+            if(cats[i] != null) {
+                cats[i].update();
+            }
+        }
+
     }
 
     public void paintComponent(Graphics graphics) {
@@ -97,10 +107,15 @@ public class GamePanel extends JPanel implements Runnable {
                 object[i].draw(graphics2D, this);
             }
         }
+
+        for(int i = 0; i < cats.length; i++){
+            if(cats[i] != null) {
+                cats[i].draw(graphics2D);
+            }
+        }
+
         //player
         mouse.draw(graphics2D);
-        mouse2.draw(graphics2D);
-
         //UI
         ui.draw(graphics2D);
 

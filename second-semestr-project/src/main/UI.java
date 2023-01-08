@@ -13,6 +13,7 @@ public class UI {
     public String message = "";
     int messageCounter = 0;
     public boolean gameFinished = false;
+    public boolean gameLost = false;
     public UI(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
         courier_new = new Font("Courier New", Font.PLAIN, 30);
@@ -25,6 +26,25 @@ public class UI {
     }
 
     public void draw(Graphics2D graphics2D) {
+
+        if (gameLost == true) {
+            graphics2D.setFont(courier_new);
+            graphics2D.setColor(Color.yellow);
+
+            String text;
+            int textLength;
+            int x;
+            int y;
+
+            text = "You Lost!";
+            //чтобы текст был выровнен по центру
+            textLength = (int)graphics2D.getFontMetrics().getStringBounds(text, graphics2D).getWidth();
+            x = gamePanel.screenWidth/2 - textLength/2;
+            y = gamePanel.screenHeight/2 - (gamePanel.tileSize * 3);
+            graphics2D.drawString(text, x, y);
+        }
+
+
         //игра закончилась?
         if (gameFinished == true) {
             graphics2D.setFont(courier_new);

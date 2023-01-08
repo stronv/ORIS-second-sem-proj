@@ -21,4 +21,8 @@ public class Entity {
     public int solidPartDefaultY;
     public boolean collisionOn = false;
 
+
+    public Entity(GamePanel gamePanel) {
+        this.gamePanel = gamePanel;
     }
+}

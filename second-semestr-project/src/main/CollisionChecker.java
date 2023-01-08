@@ -1,5 +1,6 @@
 package main;
 
+import entity.Cat;
 import entity.Entity;
 
 public class CollisionChecker {
@@ -123,5 +124,97 @@ public class CollisionChecker {
             }
         }
         return index;
+    }
+
+    public int checkCats(Entity entity, Cat[] target) {
+
+        int index = 999;
+        for(int i = 0; i < target.length; i++) {
+
+            if(target[i] != null) {
+                //находим твердую область сущности
+                entity.solidPart.x = entity.x + entity.solidPart.x;
+                entity.solidPart.y = entity.y + entity.solidPart.y;
+                //твердая область объекта
+                target[i].solidPart.x = target[i].x + target[i].solidPart.x;
+                target[i].solidPart.y = target[i].y + target[i].solidPart.y;
+                //где объект будет находиться после перемещения.
+                switch (entity.direction) {
+                    case "up":
+                        entity.solidPart.y -= entity.speed;
+                        if(entity.solidPart.intersects(target[i].solidPart)) {
+                            entity.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+                    case "down":
+                        entity.solidPart.y += entity.speed;
+                        if(entity.solidPart.intersects(target[i].solidPart)) {
+                            entity.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+                    case "left":
+                        entity.solidPart.x -= entity.speed;
+                        if(entity.solidPart.intersects(target[i].solidPart)) {
+                            entity.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+                    case "right":
+                        entity.solidPart.x += entity.speed;
+                        if(entity.solidPart.intersects(target[i].solidPart)) {
+                            entity.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+                }
+                entity.solidPart.x = entity.solidPartDefaultX;
+                entity.solidPart.y = entity.solidPartDefaultY;
+                target[i].solidPart.x = target[i].solidPartDefaultX;
+                target[i].solidPart.y = target[i].solidPartDefaultY;
+            }
+        }
+        return index;
+    }
+
+    public void checkPlayer(Entity entity) {
+            //находим твердую область сущности
+        entity.solidPart.x = entity.x + entity.solidPart.x;
+        entity.solidPart.y = entity.y + entity.solidPart.y;
+            //твердая область объекта
+        gamePanel.mouse.solidPart.x = gamePanel.mouse.x + gamePanel.mouse.solidPart.x;
+        gamePanel.mouse.solidPart.y = gamePanel.mouse.y + gamePanel.mouse.solidPart.y;
+            //где объект будет находиться после перемещения.
+        switch (entity.direction) {
+            case "up":
+                entity.solidPart.y -= entity.speed;
+                if(entity.solidPart.intersects(gamePanel.mouse.solidPart)) {
+                    entity.collisionOn = true;
+                }
+                break;
+                case "down":
+                    entity.solidPart.y += entity.speed;
+                    if(entity.solidPart.intersects(gamePanel.mouse.solidPart)) {
+                        entity.collisionOn = true;
+                    }
+                    break;
+                case "left":
+                    entity.solidPart.x -= entity.speed;
+                    if(entity.solidPart.intersects(gamePanel.mouse.solidPart)) {
+                        entity.collisionOn = true;
+                    }
+                    break;
+                case "right":
+                    entity.solidPart.x += entity.speed;
+                    if(entity.solidPart.intersects(gamePanel.mouse.solidPart)) {
+                        entity.collisionOn = true;
+                    }
+                    break;
+            }
+            entity.solidPart.x = entity.solidPartDefaultX;
+            entity.solidPart.y = entity.solidPartDefaultY;
+            gamePanel.mouse.solidPart.x = gamePanel.mouse.solidPartDefaultX;
+            gamePanel.mouse.solidPart.y = gamePanel.mouse.solidPartDefaultY;
     }
 }

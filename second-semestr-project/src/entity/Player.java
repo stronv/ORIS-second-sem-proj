@@ -9,15 +9,18 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Player extends Entity {
-    GamePanel gamePanel;
     KeyHandler keyHandler;
+    String username;
 
+    int life;
     public final int screenY, screenX;
     public int hasCheese = 0;
 
-    public Player(GamePanel gamePanel, KeyHandler keyHandler) {
-        this.gamePanel = gamePanel;
+
+    public Player(GamePanel gamePanel, KeyHandler keyHandler, String username) {
+        super(gamePanel);
         this.keyHandler = keyHandler;
+        this.username = username;
 
         screenY  = gamePanel.screenHeight/2 - (gamePanel.tileSize/2);
         screenX  = gamePanel.screenWidth/2 - (gamePanel.tileSize/2);
@@ -34,23 +37,36 @@ public class Player extends Entity {
     }
 
     public void setDefaultValues() {
-        x = gamePanel.tileSize * 5;
-        y = gamePanel.tileSize * 28;
+        if (username.equalsIgnoreCase("player1")) {
+            x = gamePanel.tileSize * 5;
+            y = gamePanel.tileSize * 28;
+        }
+        if (username.equalsIgnoreCase("player2")) {
+            x = gamePanel.tileSize * 5 + 60;
+            y = gamePanel.tileSize * 28;
+        }
         speed = 4;
         direction = "left";
+        life = 2;
     }
 
     public void getPlayerImage() {
         try{
-            moveLeft = ImageIO.read(getClass().getResourceAsStream("/resources/player/mouse1.png"));
-            moveRight = ImageIO.read(getClass().getResourceAsStream("/resources/player/mouse2.png"));
+            if (username.equalsIgnoreCase("player1")) {
+                moveLeft = ImageIO.read(getClass().getResourceAsStream("/resources/player/mouse1.png"));
+                moveRight = ImageIO.read(getClass().getResourceAsStream("/resources/player/mouse2.png"));
+            }
+            if (username.equalsIgnoreCase("player2")) {
+                moveLeft = ImageIO.read(getClass().getResourceAsStream("/resources/player/blackmouse.png"));
+                moveRight = ImageIO.read(getClass().getResourceAsStream("/resources/player/blackmouse2.png"));
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void update() {
-
         if (keyHandler.upPressed == true) {
             direction = "up";
         }
@@ -67,6 +83,8 @@ public class Player extends Entity {
         gamePanel.collcheck.checkTile(this);
         //проверка столковения oбъекта
         int objectIndex = gamePanel.collcheck.checkObject(this, true);
+        int catsIndex = gamePanel.collcheck.checkCats(this, gamePanel.cats);
+        interactCats(catsIndex);
         pickUpObject(objectIndex);
         //если столкновения не обнаружено то мышь может дальше двигаться
          if(collisionOn == false) {
@@ -103,6 +121,15 @@ public class Player extends Entity {
                  spriteNumber = 1;
             }
             spriteCounter = 0;
+        }
+    }
+
+    public void interactCats(int index) {
+        if (index != 999) {
+                life -= 1;
+        }
+        if (life <= 0) {
+            gamePanel.ui.gameLost = true;
         }
     }
 

@@ -1,5 +1,6 @@
 package main;
 
+import entity.Entity;
 import entity.Player;
 import main.tile.TileManager;
 import object.SuperObject;
@@ -25,6 +26,7 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyHandler = new KeyHandler();
     public CollisionChecker collcheck = new CollisionChecker(this);
     public AssetSetter asSet = new AssetSetter(this);
+    public UI ui = new UI(this);
     public Player mouse = new Player(this, keyHandler);
 
     public SuperObject object[] = new SuperObject[10];
@@ -77,6 +79,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
+        //Player
         mouse.update();
     }
 
@@ -93,6 +96,9 @@ public class GamePanel extends JPanel implements Runnable {
         }
         //player
         mouse.draw(graphics2D);
+
+        //UI
+        ui.draw(graphics2D);
 
         graphics2D.dispose();
     }

@@ -1,9 +1,13 @@
 package entity;
 
+import main.GamePanel;
+import main.KeyHandler;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Entity {
+    GamePanel gamePanel;
     public int x;
     public int y;
     public int speed;
@@ -12,8 +16,9 @@ public class Entity {
     public String direction;
     public int spriteCounter = 0;
     public int spriteNumber = 1;
-    public Rectangle solidPart;
+    public Rectangle solidPart = new Rectangle(0, 0, 32, 32);
     public int solidPartDefaultX;
     public int solidPartDefaultY;
     public boolean collisionOn = false;
-}
+
+    }

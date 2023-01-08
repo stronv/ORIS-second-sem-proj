@@ -61,13 +61,13 @@ public class GameServer extends Thread {
                 PlayerMP playerMP = null;
 
                 if (address.getHostAddress().equalsIgnoreCase("127.0.0.1")) {
-                    playerMP = new PlayerMP(gamePanel, gamePanel.getKeyHandler(), "", address, port);
+//                    playerMP = new PlayerMP(gamePanel, gamePanel.getKeyHandler(), "", address, port);
                 } else {
                     playerMP = new PlayerMP(gamePanel, "", address, port);
                 }
                 if (playerMP != null) {
                     this.connectedPlayers.add(playerMP);
-                    gamePanel.addPlayer(playerMP);
+//                    gamePanel.addPlayer(playerMP);
                 }
 
             case DISCONNECT: break;

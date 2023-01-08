@@ -13,15 +13,15 @@ public class PlayerMP extends Player {
 
     public InetAddress ipAddress;
     public int port;
-    public PlayerMP(GamePanel gamePanel, KeyHandler keyHandler, String username, InetAddress ipAddress, int port) {
-        super(gamePanel, keyHandler, username);
+    public PlayerMP(GamePanel gamePanel, KeyHandler keyHandler) {
+        super(gamePanel, keyHandler);
         this.ipAddress = ipAddress;
         this.port = port;
         setDefaultValues();
     }
 
     public PlayerMP(GamePanel gamePanel,String username, InetAddress ipAddress, int port) {
-        super(gamePanel, null, username);
+        super(gamePanel, null);
         this.ipAddress = ipAddress;
         this.port = port;
         setDefaultValues();
@@ -60,7 +60,6 @@ public class PlayerMP extends Player {
         y = gamePanel.tileSize * 28;
         speed = 4;
         direction = "right";
-        username = "Player1";
     }
 
     @Override

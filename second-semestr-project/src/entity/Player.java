@@ -11,13 +11,24 @@ import java.io.IOException;
 public class Player extends Entity {
     GamePanel gamePanel;
     KeyHandler keyHandler;
-    public final int screenY;
 
-    public Player(GamePanel gamePanel, KeyHandler keyHandler, String username) {
+    public final int screenY, screenX;
+    int hasCheese = 0;
+
+    public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         this.gamePanel = gamePanel;
         this.keyHandler = keyHandler;
-        this.username = username;
+
         screenY  = gamePanel.screenHeight/2 - (gamePanel.tileSize/2);
+        screenX  = gamePanel.screenWidth/2 - (gamePanel.tileSize/2);
+
+        solidPart = new Rectangle();
+        solidPart.x = 8;
+        solidPart.y = 0;
+        solidPartDefaultX = solidPart.x;
+        solidPartDefaultY = solidPart.y;
+        solidPart.width = 16;
+        solidPart.height = 32;
         getPlayerImage();
         setDefaultValues();
     }
@@ -27,11 +38,10 @@ public class Player extends Entity {
         y = gamePanel.tileSize * 28;
         speed = 4;
         direction = "left";
-        username = "player1";
     }
 
     public void getPlayerImage() {
-        try {
+        try{
             moveLeft = ImageIO.read(getClass().getResourceAsStream("/resources/player/mouse1.png"));
             moveRight = ImageIO.read(getClass().getResourceAsStream("/resources/player/mouse2.png"));
         } catch (IOException e) {
@@ -40,20 +50,50 @@ public class Player extends Entity {
     }
 
     public void update() {
-        if (keyHandler.leftPressed == true) {
-            direction = "left";
-            x -= speed;
-        }
-        else if (keyHandler.rightPressed == true) {
-            direction = "right";
-            x += speed;
-        } else if (keyHandler.upPressed == true) {
+
+        if (keyHandler.upPressed == true) {
             direction = "up";
-            y -= speed;
-        } else if (keyHandler.downPressed == true) {
-            direction = "down";
-            y += speed;
         }
+        else if (keyHandler.downPressed == true) {
+            direction = "down";
+        } else if (keyHandler.leftPressed == true) {
+            direction = "left";
+        } else if (keyHandler.rightPressed == true) {
+            direction = "right";
+        }
+
+        //проверка столковение поля
+        collisionOn = false;
+        gamePanel.collcheck.checkTile(this);
+        //проверка столковения oбъекта
+        int objectIndex = gamePanel.collcheck.checkObject(this, true);
+        pickUpObject(objectIndex);
+        //если столкновения не обнаружено то мышь может дальше двигаться
+         if(collisionOn == false) {
+             switch (direction) {
+                 case "up":
+                     if (keyHandler.upPressed == true) {
+                        y -= speed;
+                     }
+                     break;
+                 case "down":
+                     if (keyHandler.downPressed == true) {
+                         y += speed;
+                     }
+                     break;
+                 case "left":
+                     if (keyHandler.leftPressed == true) {
+                         x -= speed;
+                     }
+                     break;
+                 case "right":
+                     if (keyHandler.rightPressed == true) {
+                         x += speed;
+                     }
+                     break;
+             }
+         }
+
         spriteCounter++;
         if(spriteCounter > 20) {
             if(spriteNumber == 1) {
@@ -65,6 +105,19 @@ public class Player extends Entity {
             spriteCounter = 0;
         }
     }
+
+   public void pickUpObject(int index) {
+        if (index != 999) {
+            String objectName = gamePanel.object[index].name;
+            switch (objectName) {
+                case "Cheese":
+                    hasCheese++;
+                    gamePanel.object[index] = null;
+                    System.out.println("Cheese: "+hasCheese);
+                    break;
+            }
+        }
+   }
 
     public void draw(Graphics2D graphics2D) {
         BufferedImage image = null;

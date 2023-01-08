@@ -13,7 +13,7 @@ public class Player extends Entity {
     KeyHandler keyHandler;
 
     public final int screenY, screenX;
-    int hasCheese = 0;
+    public int hasCheese = 0;
 
     public Player(GamePanel gamePanel, KeyHandler keyHandler) {
         this.gamePanel = gamePanel;
@@ -113,7 +113,10 @@ public class Player extends Entity {
                 case "Cheese":
                     hasCheese++;
                     gamePanel.object[index] = null;
-                    System.out.println("Cheese: "+hasCheese);
+                    gamePanel.ui.ShowMessage("You got a cheese)))");
+                    break;
+                case "Hole":
+                    gamePanel.ui.gameFinished = true;
                     break;
             }
         }

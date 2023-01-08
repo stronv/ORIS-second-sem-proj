@@ -37,6 +37,7 @@ public class GamePanel extends JPanel implements Runnable {
     private GameServer socketServer;
 
     public Player mouse = new Player(this, keyHandler, "player1");
+    public PlayerMP mouse2 = new PlayerMP(this, keyHandler, "player1", null, 0);
     private List<Entity> playerArrayList = new ArrayList<Entity>();
 
     public void addPlayer(Entity player) {
@@ -55,17 +56,18 @@ public class GamePanel extends JPanel implements Runnable {
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
-
-        if (JOptionPane.showConfirmDialog(this, "Do you want to run the server?") == 0) {
-            socketServer = new GameServer(this);
-            socketServer.start();
-        }
-        socketClient = new GameClient(this, "localhost");
-        socketClient.start();
-        socketClient.sendData("ping".getBytes());
-
-        Packet00Login packet00Login = (new Packet00Login(JOptionPane.showInputDialog(this, "Enter your username")));
-        packet00Login.writeData(socketClient);
+        addPlayer(mouse);
+        addPlayer(mouse2);
+//
+//        if (JOptionPane.showConfirmDialog(this, "Do you want to run the server?") == 0) {
+//            socketServer = new GameServer(this);
+//            socketServer.start();
+//        }
+//        socketClient = new GameClient(this, "localhost");
+//        socketClient.start();
+//
+//        Packet00Login packet00Login = (new Packet00Login(JOptionPane.showInputDialog(this, "Enter your username")));
+//        packet00Login.writeData(socketClient);
     }
 
     int FPS = 60;
@@ -83,7 +85,6 @@ public class GamePanel extends JPanel implements Runnable {
         while (gameThread != null) {
 
             currentTime = System.nanoTime();
-//            System.out.println("Current Time is: " + currentTime );
 
             delta += (currentTime - lastTime) / drawInterval;
 

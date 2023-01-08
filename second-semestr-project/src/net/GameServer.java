@@ -74,7 +74,7 @@ public class GameServer extends Thread {
         }
     }
 
-    public void senDataToAllClients(byte[] data) {
+    public void sendDataToAllClients(byte[] data) {
         for (PlayerMP p: connectedPlayers) {
             sendData(data, p.ipAddress, p.port);
         }

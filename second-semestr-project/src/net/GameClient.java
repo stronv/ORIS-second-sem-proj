@@ -33,7 +33,6 @@ public class GameClient extends Thread {
             System.out.println("SERVER -> " + message);
         }
     }
-
     public void sendData(byte[] data) {
         DatagramPacket datagramPacket = new DatagramPacket(data, data.length, ipAddress, 1717);
         try {

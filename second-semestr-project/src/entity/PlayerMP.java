@@ -13,7 +13,6 @@ public class PlayerMP extends Player {
 
     public InetAddress ipAddress;
     public int port;
-
     public PlayerMP(GamePanel gamePanel, KeyHandler keyHandler, String username, InetAddress ipAddress, int port) {
         super(gamePanel, keyHandler, username);
         this.ipAddress = ipAddress;
@@ -57,11 +56,11 @@ public class PlayerMP extends Player {
     }
 
     public void setDefaultValues() {
-        x = gamePanel.tileSize * 5 + 40;
+        x = gamePanel.tileSize * 5 + 60;
         y = gamePanel.tileSize * 28;
         speed = 4;
         direction = "right";
-        username = "player2";
+        username = "Player1";
     }
 
     @Override
@@ -76,7 +75,7 @@ public class PlayerMP extends Player {
 
     public void draw(Graphics2D graphics2D) {
         BufferedImage image = null;
-        switch (direction){
+        switch (direction) {
             case "left":
                 if(spriteNumber == 1) {
                     image = moveLeft;

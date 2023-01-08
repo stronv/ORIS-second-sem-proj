@@ -31,7 +31,7 @@ public class Player extends Entity {
     }
 
     public void getPlayerImage() {
-        try{
+        try {
             moveLeft = ImageIO.read(getClass().getResourceAsStream("/resources/player/mouse1.png"));
             moveRight = ImageIO.read(getClass().getResourceAsStream("/resources/player/mouse2.png"));
         } catch (IOException e) {
@@ -40,7 +40,6 @@ public class Player extends Entity {
     }
 
     public void update() {
-
         if (keyHandler.leftPressed == true) {
             direction = "left";
             x -= speed;
